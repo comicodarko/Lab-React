@@ -8,8 +8,8 @@
 	- 2.2 - [Primeiro Componente](#02-2)
   - 2.3 - [Componente com Propriedade](#02-3)
   - 2.4 - [Forma enxuta para Componentes Funcionais](#02-4)
-  - 2.5 - []()
-  - 2.6 - []()
+  - 2.5 - [Componente Card](#02-5)
+  - 2.6 - [Componente Filho](#02-6)
 
 ****
 
@@ -185,3 +185,95 @@ export default () => (
   </>
 );
 ```
+
+## <a name="02-5">Componente Card</a>
+
+- No react é utilizado **className** em vez de class.
+
+Acessando componentes filhos:
+
+```jsx
+<Card titulo="Número aleatório">
+  <Aleatorio 
+    min={1}
+    max={100}
+  />
+</Card>
+```
+
+```jsx
+export default (props) =>{
+
+  return (
+    <div className="card">
+      <div className="title">{props.titulo}</div>
+      <div className="content">
+        {props.children}
+      </div>
+    </div>
+  )
+}
+```
+
+Recebendo um atributo CSS:
+
+```jsx
+<Card titulo="#04 - Número aleatório" color="#080">
+...
+```
+
+No Componente:
+
+```jsx
+export default (props) =>{
+
+  const style = {
+    backgroundColor: props.color || '#f00',
+    borderColor: props.color || '#f00' //Padrão
+  }
+
+  return (
+    <div className="card" style={style}>
+      <div className="title">{props.titulo}</div>
+      <div className="content">
+        {props.children}
+      </div>
+    </div>
+  )
+}
+```
+
+Alternativa: 
+
+```jsx
+return (
+    <div className="card" style={{
+      backgroundColor: props.color || '#f00',
+      borderColor: props.color || '#f00' //Padrão
+    }>
+      <div className="title">{props.titulo}</div>
+      <div className="content">
+        {props.children}
+      </div>
+    </div>
+  )
+```
+
+***
+
+## <a name="02-6">Componente Filho</a>
+
+Passando propriedades para componentes filhos:
+
+```jsx
+export default (props) => {
+  return (
+    <div> 
+      <FamiliaMembro nome="Fábio" sobrenome={props.sobrenome}/>
+      <FamiliaMembro nome="José" {...props}/> 
+      <FamiliaMembro nome="Teixeira" sobrenome={props.sobrenome}/>
+    </div>
+  )
+}
+```
+
