@@ -10,7 +10,9 @@
   - 2.4 - [Forma enxuta para Componentes Funcionais](#02-4)
   - 2.5 - [Componente Card](#02-5)
   - 2.6 - [Componente Filho](#02-6)
-
+  - 2.7 - [Repetição](#02-7)
+  - 2.8 - [Renderização Condicional](#02-8)
+  - 2.9 - [Comunicação Entre Componente](#02-9)
 ****
 
 ## <a name="02-1">Primeiro projeto</a>
@@ -276,4 +278,144 @@ export default (props) => {
   )
 }
 ```
+
+### Algo um pouco mais complexo.
+
+Como passar as as propriedades de um componente pai para os filhos desse jeito?
+```jsx
+<Familia sobrenome="Filho">
+  <FamiliaMembro nome="Fábio" />
+  <FamiliaMembro nome="José" />
+  <FamiliaMembro nome="Texeira" />          
+</Familia>
+```
+
+Quando não se tem acesso diretamente aos filhos:
+```jsx
+export default (props) => {
+  return (
+    <div>
+      {
+        props.children.map((child) => {
+          return cloneElement(child, props);
+        })
+      }
+    </div>
+  )
+}
+```
+
+****
+
+## <a name="02-7">Repetição</a>
+
+Usando map:
+```jsx
+import alunos from '../../data/alunos'; 
+
+export default () => {
+
+  const students = alunos.map(aluno => {
+    return <li key={aluno.id}>{aluno.id}) {aluno.nome} - {aluno.nota}</li>
+  })
+
+  return (
+    <div>
+      <ul>
+        {students}
+      </ul>
+    </div>
+  )
+}
+```
+> A **key** é importante para o React detectar as eventuais mudanças que possam acontecer em cada elemento.
+
+***
+
+## <a name="02-8">Renderização Condicional</a>
+
+```js
+export default (props) => {
+  const isPar = props.number % 2 === 0;
+
+  return (
+    <div>
+      { isPar ? 
+        <span>Par</span> : 
+        <span>Ímpar</span>
+      }
+      
+    </div>
+  )
+}
+```
+
+Outro exemplo:
+```js
+export default (props) => {
+  if (props.test) {
+    return props.children; //Irá renderizar
+  }  else {
+    return false;
+  }
+} 
+```
+
+```jsx
+<If test={user && user.nome}>
+  Seja bem vindo <strong>{props.usuario.nome}</strong>
+</If>
+
+<If test={!user || !user.nome}>
+  Seja bem vindo <strong>brother!</strong>
+</If>
+```
+
+****
+
+## <a name="02-9">Comunicação Entre Componentes</a>
+
+### Comunicação **Direta** 
+
+Se dá através das **props**. do componente pai para o componente filho
+
+### Comunicação **Indireta**
+
+Quando você precisa passar informações do componente filho para o componente pai:
+
+Filho:
+```jsx
+export default (props) => {
+  return (
+    <div>
+      <div>Filho</div>
+      <button onClick={
+        () => {props.onClick('Nomepassado', 17, true)}
+      }>Fornecer Informações</button>
+    </div>
+  )
+}
+```
+
+Pai:
+```jsx
+import React from 'react';
+import IndiretaFilho from './IndiretaFilho';
+
+export default (props) => {
+
+  function fornecerInformações(texto, numero, bool) {
+    console.log(texto, numero, bool);
+  }
+
+  return (
+    <div>
+      <div>Pai</div>
+      <IndiretaFilho onClick={fornecerInformações}/>
+    </div>
+  )
+}
+```
+
+Como mostrar essas informações no componente pai?
 
