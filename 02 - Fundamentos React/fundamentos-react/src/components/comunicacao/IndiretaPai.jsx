@@ -1,21 +1,21 @@
-import React from 'react';
+import React, { useState }from 'react';
 import IndiretaFilho from './IndiretaFilho';
 
 export default (props) => {
-  let texto = '';
-  let numero = 0;
-  let bool = false;
+  const [text, setText] = useState('');
+  const [number, setNumber] = useState(0);
+  const [bool, setBool] = useState(false);
 
-  function fornecerInformações(textoParam, numeroParam, boolParam) {
-    texto = textoParam;
-    numero = numeroParam;
-    bool = boolParam;
+  function fornecerInformações(text, number, bool) {
+    setText(text);
+    setNumber(number);
+    setBool(bool)
   }
 
   return (
     <div>
-      <span>{texto} - </span>
-      <span>{numero} - </span>
+      <span>{text} - </span>
+      <span>{number} - </span>
       <span>{bool ? 'Verdadeiro' : 'Falso'}</span>
       <div>Pai</div>
       <IndiretaFilho onClick={fornecerInformações}/>

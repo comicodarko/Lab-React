@@ -13,6 +13,8 @@
   - 2.7 - [Repetição](#02-7)
   - 2.8 - [Renderização Condicional](#02-8)
   - 2.9 - [Comunicação Entre Componente](#02-9)
+  - 2.10 - [Estado](#02-10)
+  - 2.11 - [Componente baseado em Classe](#02-11)
 ****
 
 ## <a name="02-1">Primeiro projeto</a>
@@ -96,7 +98,7 @@ ReactDOM.render(
   document.getElementById('root')
 )
 ```
-****
+****￼
 
 ## <a name="02-3">Componente com Propriedade</a>
 
@@ -419,3 +421,215 @@ export default (props) => {
 
 Como mostrar essas informações no componente pai?
 
+## <a name="2-10">Estado</a> 
+
+O conceito de React **Hooks**
+
+- Os dados são alterados e a interface gráfica reflete na alteração desses dados.
+
+```js
+import React, { useState }from 'react';
+import IndiretaFilho from './IndiretaFilho';
+
+export default (props) => {
+  const [text, setText] = useState('');
+  const [number, setNumber] = useState(0);
+  const [bool, setBool] = useState(false);
+
+  function fornecerInformações(text, number, bool) {
+    setText(text);
+    setNumber(number);
+    setBool(bool)
+  }
+
+  return (
+    <div>
+      <span>{text} - </span>
+      <span>{number} - </span>
+      <span>{bool ? 'Verdadeiro' : 'Falso'}</span>
+      <div>Pai</div>
+      <IndiretaFilho onClick={fornecerInformações}/>
+    </div>
+  )
+}
+```
+
+### Componente controlado.
+
+```jsx
+import React, { useState } from 'react';
+export default (props) => {
+  
+  const [value, setValue] = useState('1');
+
+  return(
+    <div className="input">
+      <input
+        type="text"
+        value={value}  
+      />
+    </div>
+  )
+}
+```
+> Não será possível mudar o valor do input de texto pela interface.
+
+Mudando na interface gráfica com o estado:
+
+```jsx
+import React, { useState } from 'react';
+
+import './Input.css';
+
+export default (props) => {
+  
+  const [value, setValue] = useState('1');
+
+  function change(e) {
+    setValue(e.target.value);
+  }
+
+  return(
+    <div className="input">
+      <input
+        type="text"
+        value={value}  
+        onChange={change}
+      />
+
+      <input
+        type="text"
+        value={value}  
+        readOnly     
+      />
+    </div>
+  )
+}
+```
+
+- Caso venha a estourar um erro usar **readOnly**.
+
+Para criar um Componente Não Controlado:
+
+```jsx
+<input value={undefined} />
+```
+
+## <a name="02-11">Componente Baseado em Classe</a>
+
+- A principal diferença entre um componente funcional e um componente baseado em classe é que você tem alguns métodos extras nas classes. 
+- Porém na maioria dos caso o uso do componente funcional é o suficiente para uso.
+
+```jsx
+import React, { Component } from 'react';
+
+export default class Contador extends Component {
+  
+  // Estados
+  state = {
+    // Acessando as props
+    number: this.props.initialNumber,
+
+  }
+
+  render() {
+    return (
+      <div>
+        <h2>Contador</h2>
+        // Acessando os estados
+        <p>Valor Inicial: {this.state.number}</p>
+      </div>
+    )
+  }
+}
+```
+
+Com construtor:
+
+```jsx
+import React, { Component } from 'react';
+
+export default class Contador extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      number: props.initialNumber,
+  
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <h2>Contador</h2>
+        <p>Valor Inicial: {this.state.number}</p>
+      </div>
+    )
+  }
+}
+```
+
+Exemplo final sem o constructor e arrow function no onClick:
+
+```jsx
+import React, { Component } from 'react';
+
+export default class Contador extends Component {
+  // Estados
+  state = {
+    number: this.props.initialNumber
+  }
+
+  inc() {
+    this.setState({
+      number: this.state.number + 1
+    })    
+  }
+
+  render() {
+    return (
+      <div>
+        <h2>{this.state.number}</h2>
+        <button onClick={() => this.inc()}>+1</button>
+      </div>
+    )
+  }
+}
+```
+
+Método final com arrow function na própria função:
+
+```jsx
+import React, { Component } from 'react';
+
+export default class Contador extends Component {
+  // Estados
+  state = {
+    number: this.props.initialNumber
+  }
+
+  inc = () => {
+    this.setState({
+      number: this.state.number + 1
+    })    
+  }
+
+  dec = () => {
+    this.setState({
+      number: this.state.number -1
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <h2>{this.state.number}</h2>
+        <button onClick={this.inc}>+1</button>
+        <button onClick={this.dec}>-1</button>
+      </div>
+    )
+  }
+}
+```
