@@ -14,13 +14,8 @@
 ## :robot: Indíce
 
 - 1 - [Apostila](https://github.com/comicodarko/Lab-React/tree/master/01%20-%20Extras)
-- 2 - [Fundamentos React](https://github.com/comicodarko/Lab-React/tree/master/02%20-%20Fundamentos%20React)
-  - 2.1 - [Primeiro Projeto](https://github.com/comicodarko/Lab-React/tree/master/02%20-%20Fundamentos%20React#02-1)
-  - 2.2 - [Primeiro Componente](https://github.com/comicodarko/Lab-React/tree/master/02%20-%20Fundamentos%20React#02-1)
-  - 2.3 - []()
-  - 2.4 - []()
-  - 2.5 - []()
-  - 2.6 - []()
+- 2 - [React](https://github.com/comicodarko/Lab-React/tree/master/02%20-%20Fundamentos%20React)
+- 3 - [Redux](#03)
 
 
   

@@ -33,7 +33,7 @@ export default () => (
         <Contador initialNumber={0} />
       </Card>
 
-      <Card titulo="#11 - Conponente Controlado" color="#E45F56">
+      <Card titulo="#11 - Componente Controlado" color="#E45F56">
         <Input />
       </Card>
 
@@ -57,7 +57,7 @@ export default () => (
       <Card titulo="#06 - Repetição" color="#FF4C65">
         <ListaAlunos />
       </Card>
-      
+  
       <Card titulo="#05 - Componente com Filhos" color="#00c9f8">
         <Familia sobrenome="Filho">
           <FamiliaMembro nome="Fábio" />

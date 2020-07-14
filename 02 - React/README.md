@@ -1,6 +1,6 @@
 # :atom_symbol: Fundamentos React
 
-## :robot: Indíce
+## :robot: Índice
 
 - 1 - [Apostila](https://github.com/comicodarko/Lab-React/tree/master/01%20-%20Extras)
 - 2 - [Fundamentos React](#02)
