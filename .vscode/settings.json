@@ -1,4 +1,19 @@
 {
   "cSpell.enabled": true,
-  "cSpell.language": "pt,pt-BR,en,en-GB,en-US"
+  "cSpell.language": "pt,pt-BR,en,en-GB,en-US",
+  "cSpell.enableFiletypes": [
+    "!asciidoc",
+    "!c",
+    "!cpp",
+    "!csharp",
+    "!go",
+    "!java",
+    "!plaintext",
+    "!pug",
+    "!python",
+    "!restructuredtext",
+    "!rust",
+    "graphql",
+    "jsx-tags"
+  ]
 }
