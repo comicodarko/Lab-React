@@ -72,3 +72,60 @@ function App() {
 ```
 
 > No exemplo a cima mesmo com o delay imposto o valor será alterado corretamente.
+
+## <a name="1">**useEffect** - Lifecycle</a>
+
+- Só pode ser executado no escopo principal.
+
+```js
+  useEffect(() => {
+    console.log('run');
+  })
+```
+> Será executado sempre que o componente renderizar.
+
+
+```js
+  useEffect(() => {
+    console.log('run');
+  }, [])
+```
+> Será executado apenas quando o componente for **montado** pela primeira vez.
+
+```js
+  useEffect(() => {
+    return () => {
+      console.log('run');
+    }
+  })
+```
+> Será executado apenas quando o componente for **desmontado**.
+
+- O segundo argumento no useEffect é usado como um array de dependências, que so será executado quando um estado nesse array mudar.
+
+```js
+  useEffect(() => {
+    console.log('run');
+  }, [estado1, estado2])
+```
+
+### **Jeito certo para usar assincronismo dentro de um useEffect** 
+
+```js
+  // Normal
+  useEffect(() => {
+    async function load() {
+      await api.get(()...)
+    }
+    load();
+  })
+
+  // Immediately Invoked Function Expression
+
+  useEffect(() => {
+    (async () => {
+      await api.get(()...)
+    })();
+  })
+
+```
