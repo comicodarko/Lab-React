@@ -4,7 +4,7 @@
 
 - 0 - [**useState** - O que são Hooks e manipulando states](#0)
 - 1 - [**useEffect** - Lifecycle ](#1)
-- 2 - [Redux](#2)
+- 2 - [**useContext** - Contextos](#2)
 ****
 > Playlist com todos os Hooks  
 > https://www.youtube.com/watch?v=x7jm93Mrvtc&list=PLPXWI3llyMiLayGs4_noY8Q1-rbmbFoYM&ab_channel=MateusSilva
@@ -129,3 +129,30 @@ function App() {
   })
 
 ```
+
+## <a name="2">useContext - Contextos</a>
+
+```js
+import React, { createContext, useContext } from 'react';
+
+import './App.css';
+
+const ThemeContext = createContext();
+
+function App() {
+  return (
+    <ThemeContext.Provider value={{ mode: 'dark' }}>
+      <Button />
+    </ThemeContext.Provider>
+  )
+}
+
+function Button() {
+  const theme = useContext(ThemeContext);
+  return (
+    <button>{theme.mode}<button>
+  )
+}
+```
+
+- Basta invocar a função useContext enviando como único argumento o contexto que queremos pegar informações e o hook retorna todos os valores.
