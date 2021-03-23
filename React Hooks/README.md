@@ -5,6 +5,7 @@
 - 0 - [**useState** - O que são Hooks e manipulando states](#0)
 - 1 - [**useEffect** - Lifecycle ](#1)
 - 2 - [**useContext** - Contextos](#2)
+- 3 - [**useReducer** - Manipular mais estados](#3)
 ****
 > Playlist com todos os Hooks  
 > https://www.youtube.com/watch?v=x7jm93Mrvtc&list=PLPXWI3llyMiLayGs4_noY8Q1-rbmbFoYM&ab_channel=MateusSilva
@@ -156,3 +157,61 @@ function Button() {
 ```
 
 - Basta invocar a função useContext enviando como único argumento o contexto que queremos pegar informações e o hook retorna todos os valores.
+
+## <a name="3">useReducer - Manipulação de múltiplos estados</a>
+
+```js
+import React, { useReducer} from 'react';
+
+function reducer(state, action) {
+  // É uma boa prática usar Switch no lugar de if/else
+  switch(action.type) {
+    case 'minus':
+      return {  
+        counter: state.counter - 1,
+        clicks: state.clicks + 1
+      }
+    case 'plus':
+      return {  
+        counter: state.counter + 1,
+        clicks: state.clicks + 1
+      }
+    default: return state
+  }
+}
+
+const initialValue = {
+  counter: 0,
+  clicks: 0
+}
+
+function App() {
+  const [state, dispatch] = useReducer(reducer, initialValue)
+
+  function handleMinus() {
+    dispatch({ type: 'minus' });
+  }
+
+  function handlePlus() {
+    dispatch({ type: 'plus' });
+  }
+
+  return (
+    <div>
+      <h1>{state.counter}</h1>
+      <h4>Cliques: {state.clicks}</h4>
+      <button onClick={}>-</button>
+      <button onClick={}>+</button>
+    </div>
+  )
+}
+
+function Button() {
+  const theme = useContext(ThemeContext);
+  return (
+    <button>{theme.mode}<button>
+  )
+}
+```
+
+> reducer sempre precisa retornar alguma coisa, o retorno da função reducer será valor atualizado. 
